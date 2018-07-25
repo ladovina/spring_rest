@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import params.PostUsers;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -53,6 +55,10 @@ public class APIController {
      */
     @RequestMapping(value = "/users/{userGoogleId}", method = DELETE)
     public @ResponseBody String deleteUserDataActivity(@PathVariable String userGoogleId){
+
+
+        googleUserRepository.deleteById(userGoogleId);
+
         return  String.format("Deleted user and activities gid: %s", userGoogleId);
     }
 
@@ -63,9 +69,24 @@ public class APIController {
      */
     @RequestMapping(value = "/users/{userGoogleId}", method = GET)
     public @ResponseBody String getUserData(@PathVariable String userGoogleId){
-        return  String.format("GET user data for user userGoogleId: %s", userGoogleId);
-    }
 
+        Optional<GoogleUser> optionalGoogleUser = googleUserRepository.findById(userGoogleId);
+
+        GoogleUser googleUser = null;
+        try {
+            googleUser = optionalGoogleUser.get();
+        } catch(NoSuchElementException e){
+            e.printStackTrace();
+            return null;
+        }
+
+        return String.format("Google user id: %s, name: %s, gender: %s, picture: %s",
+                googleUser.getGoogleUserId(),
+                googleUser.getName(),
+                googleUser.getGender(),
+                googleUser.getPictureUrl());
+
+    }
 
     /**
      * Endpoint which returns list of activities of the user.
@@ -74,6 +95,21 @@ public class APIController {
      */
     @RequestMapping(value = "/users/{userGoogleId}/activities", method = GET)
     public @ResponseBody String getUserActivities(@PathVariable String userGoogleId){
-        return  String.format("GET user activities for user userGoogleId: %s", userGoogleId);
+        List<GoogleUserActivity> googleUserActivities =
+                googleUserActivityRepository.findByGoogleUserGoogleUserId(userGoogleId);
+
+        String result = "";
+        for(GoogleUserActivity googleUserActivity: googleUserActivities){
+            result += String.format("%s,%s,%s,%s,%s,%s,%s\n",
+                    googleUserActivity.getActivityId(),
+                    googleUserActivity.getEtag(),
+                    googleUserActivity.getGoogleUser().getGoogleUserId(),
+                    googleUserActivity.getPublished(),
+                    googleUserActivity.getUpdated(),
+                    googleUserActivity.getTitle(),
+                    googleUserActivity.getUrl());
+        }
+
+        return  result;
     }
 }
