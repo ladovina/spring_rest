@@ -1,3 +1,4 @@
 .idea
 .gradle
 out
+client_secrets.json

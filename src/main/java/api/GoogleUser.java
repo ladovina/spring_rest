@@ -11,7 +11,7 @@ public class GoogleUser {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
-    private String googleId;
+    private String googleId; //TODO: use this directly as an ID?
 
     private String name;
 

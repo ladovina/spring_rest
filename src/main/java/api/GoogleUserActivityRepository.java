@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 // CRUD refers Create, Read, Update, Delete
 
 //TODO: move to repository
-public interface GoogleUserRepository extends CrudRepository<GoogleUser, Long> {
+public interface GoogleUserActivityRepository extends CrudRepository<GoogleUserActivity, Long> {
 
 }
