@@ -1,17 +1,12 @@
 package api;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class GoogleUser {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
-
-    private String googleId; //TODO: use this directly as an ID?
+    private String googleUserId; //TODO: change type to not string?
 
     private String name;
 
@@ -19,12 +14,12 @@ public class GoogleUser {
 
     private String pictureUrl;
 
-    public String getGoogleId() {
-        return googleId;
+    public String getGoogleUserId() {
+        return googleUserId;
     }
 
-    public void setGoogleId(String googleId) {
-        this.googleId = googleId;
+    public void setGoogleUserId(String googleUserId) {
+        this.googleUserId = googleUserId;
     }
 
     public String getName() {
