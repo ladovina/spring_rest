@@ -26,12 +26,12 @@ public class APIController {
     @PostMapping(path="/users")
     public @ResponseBody String storeUserDataActivity (@RequestBody PostUsers postUsers) {
 
-        GooglePlusAPIWrapper gpa = new GooglePlusAPIWrapper();
+        GooglePlusAPIWrapper gpa = new GooglePlusAPIWrapper(postUsers);
         GoogleUser googleUser = null;
         List<GoogleUserActivity> googleUserActivities = null;
         try {
-            googleUser = gpa.getGoogleUser(postUsers); //"100319987084126732102"
-            googleUserActivities = gpa.getGoogleUserActivities(googleUser);
+            googleUser = gpa.getGoogleUser(); //"100319987084126732102"
+            googleUserActivities = gpa.getActivities(googleUser);
         } catch (Exception e) {
             //TODO:handle not found etc.
             //TODO: return JSON
