@@ -1,0 +1,5 @@
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:postgresql://localhost:5432/spring_example_db
+spring.datasource.username=
+spring.datasource.password=
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
