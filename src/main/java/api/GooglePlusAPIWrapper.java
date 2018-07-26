@@ -44,11 +44,8 @@ public class GooglePlusAPIWrapper {
                 .setApplicationName(APPLICATION_NAME).build();
     }
 
-    //TODO: check access token valid
     public GoogleUser getGoogleUser() throws Exception {
-
             Person profile = this.plus.people().get(this.postUsers.getGoogleUserId()).execute();
-
             return FactoryGoogleUser.createGoogleUser(
                     profile.getId(),
                     profile.getDisplayName(),
