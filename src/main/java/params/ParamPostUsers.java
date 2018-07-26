@@ -1,6 +1,6 @@
 package params;
 
-public class PostUsers {
+public class ParamPostUsers {
     private String googleUserId;
     private String accessToken;
 
