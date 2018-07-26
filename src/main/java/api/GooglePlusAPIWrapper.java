@@ -9,8 +9,11 @@ import com.google.api.services.plus.Plus;
 import com.google.api.services.plus.model.Activity;
 import com.google.api.services.plus.model.ActivityFeed;
 import com.google.api.services.plus.model.Person;
-import org.springframework.stereotype.Component;
-import params.PostUsers;
+import entity.GoogleUser;
+import entity.GoogleUserActivity;
+import factory.FactoryGoogleUser;
+import factory.FactoryGoogleUserActivity;
+import params.ParamPostUsers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,19 +36,19 @@ public class GooglePlusAPIWrapper {
     private static final JacksonFactory JSON_FACTORY = new JacksonFactory();
 
 
-    private PostUsers postUsers;
+    private ParamPostUsers paramPostUsers;
     private GoogleCredential credential;
     private Plus plus;
 
-    public GooglePlusAPIWrapper(PostUsers postUsers){
-        this.postUsers = postUsers;
-        this.credential = new GoogleCredential().setAccessToken(postUsers.getAccessToken());
+    public GooglePlusAPIWrapper(ParamPostUsers paramPostUsers){
+        this.paramPostUsers = paramPostUsers;
+        this.credential = new GoogleCredential().setAccessToken(paramPostUsers.getAccessToken());
         this.plus = new Plus.Builder(TRANSPORT, JSON_FACTORY, credential)
                 .setApplicationName(APPLICATION_NAME).build();
     }
 
     public GoogleUser getGoogleUser() throws Exception {
-            Person profile = this.plus.people().get(this.postUsers.getGoogleUserId()).execute();
+            Person profile = this.plus.people().get(this.paramPostUsers.getGoogleUserId()).execute();
             return FactoryGoogleUser.createGoogleUser(
                     profile.getId(),
                     profile.getDisplayName(),
@@ -56,7 +59,7 @@ public class GooglePlusAPIWrapper {
 
     private Plus.Activities.List getPlusActivitiesList() throws Exception {
         Plus.Activities.List listActivities = plus.activities().list(
-                postUsers.getGoogleUserId(),
+                paramPostUsers.getGoogleUserId(),
                 ACTIVITY_TYPE);
 
         listActivities.setMaxResults(ACTIVITIES_PER_REQ);

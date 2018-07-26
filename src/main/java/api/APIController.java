@@ -1,12 +1,14 @@
 package api;
 
+import entity.GoogleUser;
+import entity.GoogleUserActivity;
+import factory.FactoryAPIResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import params.PostUsers;
+import params.ParamPostUsers;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
@@ -23,12 +25,12 @@ public class APIController {
 
     /**
      * Endpoint for storing user's data and activities into DB.
-     * @param postUsers instance of PostUsers, deserialized from JSON.
+     * @param paramPostUsers instance of ParamPostUsers, deserialized from JSON.
      */
     @PostMapping(path="/users")
-    public @ResponseBody APIResponse storeUserDataActivity (@RequestBody PostUsers postUsers) {
+    public @ResponseBody APIResponse storeUserDataActivity (@RequestBody ParamPostUsers paramPostUsers) {
 
-        GooglePlusAPIWrapper gpa = new GooglePlusAPIWrapper(postUsers);
+        GooglePlusAPIWrapper gpa = new GooglePlusAPIWrapper(paramPostUsers);
         GoogleUser googleUser;
         List<GoogleUserActivity> googleUserActivities;
         try {

@@ -1,5 +1,6 @@
 package api;
 
+import entity.GoogleUserActivity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

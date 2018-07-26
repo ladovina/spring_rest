@@ -1,4 +1,6 @@
-package api;
+package factory;
+
+import entity.GoogleUser;
 
 public class FactoryGoogleUser {
     public static GoogleUser createGoogleUser(String googleId, String name, String gender, String pictureUrl){

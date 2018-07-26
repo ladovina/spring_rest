@@ -1,5 +1,6 @@
-package api;
+package factory;
 
+import api.APIResponse;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import org.springframework.dao.EmptyResultDataAccessException;
 

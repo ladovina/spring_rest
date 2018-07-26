@@ -1,5 +1,7 @@
-package api;
+package factory;
 
+import entity.GoogleUser;
+import entity.GoogleUserActivity;
 import org.springframework.stereotype.Component;
 
 @Component
